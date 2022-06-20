@@ -26,8 +26,8 @@ const CountryDetails = () => {
     const currenciesFromData = [...Object.entries(data?.currencies)];
 
     const cur = currenciesFromData
-      .map(([key, value]) => {
-        return {...value, code: key};
+      .map(([_, value]) => {
+        return {...value};
       })
       .map((value) => {
         return value.name;
