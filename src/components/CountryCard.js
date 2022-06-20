@@ -4,12 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import {CountriesContext} from '../context/countriesContext';
 
 const CountryCard = ({country}) => {
-  const {
-    setLoading,
-
-    setError,
-    setCountry,
-  } = useContext(CountriesContext);
+  const {setLoading, setError, setCountry} =
+    useContext(CountriesContext);
   let navigate = useNavigate();
 
   const populationInt = country?.population?.toLocaleString() || 0;
@@ -17,16 +13,12 @@ const CountryCard = ({country}) => {
 
   const fetchCountryHandler = () => {
     setLoading(true);
-    fetch(
-      // `https://restcountries.com/v3.1/name/${country?.name.common}`
-      `https://restcountries.com/v3.1/alpha/${code}`
-    )
+    fetch(`https://restcountries.com/v3.1/alpha/${code}`)
       .then((res) => res.json())
       .then((data) => {
         setCountry(data);
         setLoading(false);
-        console.log(data);
-        navigate(':country');
+        navigate(`/country/${data[0]?.name.common.toLowerCase()}`);
       })
       .catch((err) => {
         setError(err);
@@ -37,9 +29,7 @@ const CountryCard = ({country}) => {
   return (
     <div
       className='border-solid border-x-1 rounded-lg transition-all overflow-hidden h-[400px] shadow-sm hover:scale-110 hover:shadow-md bg-whiteEl dark:bg-darkBlue hover:cursor-pointer'
-      onClick={() =>
-        fetchCountryHandler(country.name.common.toLowerCase())
-      }>
+      onClick={fetchCountryHandler}>
       <div className='flex w-full overflow-hidden h-[200px] items-center '>
         <img
           src={country?.flags?.png}

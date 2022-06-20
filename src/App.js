@@ -1,7 +1,6 @@
-import {useContext, useEffect} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {useEffect} from 'react';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
-import {DarkModeContext} from './context/darkModeContext';
 import {CountriesProvider} from './context/countriesContext';
 import TopBar from './components/TopBar';
 import './App.css';
@@ -19,8 +18,11 @@ function App() {
       <div className='App min-h-screen w-full transition-all bg-veryLightGray text-black dark:bg-veryDarkBlue dark:text-white'>
         <TopBar />
         <Routes>
-          <Route path='*' element={<MainContent />} />
-          <Route path=':country' element={<CountryDetails />} />
+          <Route path='/' element={<MainContent />} />
+          <Route path='/country'>
+            <Route path=':countryName' element={<CountryDetails />} />
+          </Route>
+          <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       </div>
     </CountriesProvider>

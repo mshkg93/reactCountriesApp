@@ -1,5 +1,5 @@
 import {useState, useRef, useId, useContext} from 'react';
-import {useNavigate} from 'react-router';
+// import {useNavigate} from 'react-router';
 
 import {CountriesContext} from '../context/countriesContext';
 
@@ -8,14 +8,13 @@ const SearchInput = () => {
     filter,
     setFilter,
     countries,
-    filteredCountries,
     setFilteredCountries,
     setCountry,
     setLoading,
     setError,
   } = useContext(CountriesContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [input, setInput] = useState('');
   const inputRef = useRef(null);
@@ -38,7 +37,7 @@ const SearchInput = () => {
       )
     );
   };
-  console.log(filteredCountries);
+  // console.log(filteredCountries);
   const fetchCountryHandler = () => {
     setLoading(true);
     fetch(
@@ -50,7 +49,7 @@ const SearchInput = () => {
         setCountry(data);
         setLoading(false);
         console.log(data);
-        navigate(':country');
+        // navigate('/:country');
       })
       .catch((err) => {
         setError(err);
