@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import {useContext, useEffect} from 'react';
+import {Routes, Route} from 'react-router-dom';
+
+import {DarkModeContext} from './context/darkModeContext';
+import {CountriesProvider} from './context/countriesContext';
+import TopBar from './components/TopBar';
 import './App.css';
 
+import MainContent from './components/MainContent';
+import CountryDetails from './components/CountryDetails';
+
 function App() {
+  useEffect(() => {
+    localStorage.getItem('theme');
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CountriesProvider>
+      <div className='App min-h-screen w-full transition-all bg-veryLightGray text-black dark:bg-veryDarkBlue dark:text-white'>
+        <TopBar />
+        <Routes>
+          <Route path='*' element={<MainContent />} />
+          <Route path=':country' element={<CountryDetails />} />
+        </Routes>
+      </div>
+    </CountriesProvider>
   );
 }
 
