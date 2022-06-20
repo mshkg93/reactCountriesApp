@@ -15,7 +15,6 @@ const CountryDetails = () => {
   const data = country[0];
   console.log(countryName);
 
-  console.log(data);
   useEffect(() => {
     for (const [_, value] of Object.entries(data?.languages)) {
       setLanguages((languages) =>
@@ -60,19 +59,21 @@ const CountryDetails = () => {
 
   const borderCountries = borderz
     ? borderz[0]?.map((ctr) => (
-        <div className='flex flex-col items-center justify-center p-2 '>
+        <div className='flex flex-col justify-start items-center p-2 h-[200px] '>
           <img
             src={ctr?.flags?.png}
             alt={`${ctr?.name?.common} Flag`}
             className='w-[160px] h-[110px] object-cover rounded-sm'
           />
-          <h3 className='font-extrabold'>{ctr?.name?.common}</h3>
+          <h3 className='font-extrabold flex flex-wrap max-w-[160px] items-center text-center'>
+            {ctr?.name?.common}
+          </h3>
         </div>
       ))
     : null;
 
   return (
-    <main className=' flex flex-col h-[100vh] w-[90%] mx-auto my-12 items-start'>
+    <main className=' flex flex-col h-full w-[90%] mx-auto my-12 items-start'>
       <button
         className='flex space-x-3 p-3 shadow-md w-40 justify-center items-center rounded-md bg-veryLightGray transition-all dark:bg-darkBlue hover:shadow-xl hover:scale-x-105'
         onClick={() => navigate(-1)}>
@@ -88,46 +89,48 @@ const CountryDetails = () => {
             alt={`${data?.name?.common} Flag`}
             className=' max-w-[400px] max-h[250px] object-contain self-start rounded-sm'
           />
-          <section className=' text-start p-7 rounded-sm dark:bg-darkBlue md:w-[60%] md:mx-auto '>
+          <section className=' text-start p-7 rounded-sm  dark:bg-darkBlue md:w-[60%] md:mx-auto '>
             <h2 className='font-extrabold text-2xl col-1 mb-5'>
               {data?.name?.common}
             </h2>
-            <div className='grid gap-3 grid-cols-1 md:grid-rows-5 md:grid-cols-2 '>
-              <div className='col-1 flex space-x-2'>
+            <div className='grid gap-3 grid-cols-1 lg:grid-cols-2 '>
+              <div className='col-1 flex space-x-2 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Native Name: </h3>
                 <p>{data?.name.official}</p>
               </div>
-              <div className=' col-1 flex space-x-1'>
+              <div className=' col-1 flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Population: </h3>
                 <span>{data?.population.toLocaleString()}</span>
               </div>
-              <div className='col-1 flex space-x-1'>
+              <div className='col-1 flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Region: </h3>
                 <span>{data?.region}</span>
               </div>
-              <div className='flex space-x-1'>
+              <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Sub-Region: </h3>
                 <span>{data?.subregion}</span>
               </div>
-              <div className='flex space-x-1'>
+              <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Capital: </h3>
                 <span>{data?.capital}</span>
               </div>
-              <div className='flex space-x-1'>
+              <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Top Level Domain: </h3>
                 <span>{data?.tld[0]}</span>
               </div>
-              <div className='flex space-x-1'>
+              <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Currencies: </h3>
                 <span>{currenciesSentence}</span>
               </div>
-              <div className='flex space-x-1'>
+              <div className='flex space-x-1 flex-col xl:flex-row'>
                 <h3 className='font-extrabold'>Languages: </h3>
-                <span>{languagesSentence}</span>
+                <span className='flex flex-wrap'>
+                  {languagesSentence}
+                </span>
               </div>
             </div>
 
-            <div className='flex flex-col flex-wrap max-w-full '>
+            <div className='flex flex-col flex-wrap max-w-full items-start mt-5'>
               {borderz ? (
                 <>
                   <h3 className='font-extrabold'>
