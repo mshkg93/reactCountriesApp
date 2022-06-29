@@ -22,7 +22,8 @@ function App() {
           <Route path='/country'>
             <Route path=':countryName' element={<CountryDetails />} />
           </Route>
-          <Route path='*' element={<Navigate to='/' replace />} />
+
+          <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </div>
     </CountriesProvider>

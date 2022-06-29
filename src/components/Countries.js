@@ -8,13 +8,13 @@ const Countries = () => {
   const {countries, loading} = useFetch(
     'https://restcountries.com/v3.1/all'
   );
-  const {filter, filteredCountries} = useContext(CountriesContext);
 
-  // console.log(filter);
+  const {filteredCountries} = useContext(CountriesContext);
+
   return (
     <div className='flex items-center justify-center'>
       {(loading && <LoadingIndicator />) ||
-        (filter !== '' && (
+        (filteredCountries && (
           <CountriesGrid countries={filteredCountries} />
         )) ||
         (countries && <CountriesGrid countries={countries} />)}

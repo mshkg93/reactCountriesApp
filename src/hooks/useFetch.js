@@ -15,11 +15,8 @@ function useFetch(url) {
       .get(url, {cancelToken: source.token})
       .then((res) => {
         setLoading(false);
-        //checking for multiple responses for more flexibility
-        //with the url we send in.
         res.data && setCountries(res.data);
         res.content && setCountries(res.content);
-        // console.log(res);
       })
       .catch((err) => {
         setLoading(false);

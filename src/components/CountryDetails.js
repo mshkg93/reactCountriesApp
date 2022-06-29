@@ -11,38 +11,41 @@ const CountryDetails = () => {
   const [borderz, setBorderz] = useState([]);
   const {countries, country, loading} = useContext(CountriesContext);
   const navigate = useNavigate();
-  const {countryName} = useParams();
+  // const {countryName} = useParams();
   const data = country[0];
-  console.log(countryName);
 
   useEffect(() => {
-    for (const [_, value] of Object.entries(data?.languages)) {
+    if (!data) navigate('/');
+  }, [data]);
+
+  useEffect(() => {
+    for (const [_, value] of Object?.entries(data?.languages)) {
       setLanguages((languages) =>
         Array.from(new Set([...languages, value]))
       );
     }
 
-    const currenciesFromData = [...Object.entries(data?.currencies)];
+    const currenciesFromData = [...Object?.entries(data?.currencies)];
 
     const cur = currenciesFromData
-      .map(([_, value]) => {
+      ?.map(([_, value]) => {
         return {...value};
       })
-      .map((value) => {
+      ?.map((value) => {
         return value.name;
       })
-      .join(', ');
+      ?.join(', ');
 
     setCurrencies(cur);
-  }, []);
+  }, [data]);
 
   const languagesSentence =
-    languages.length > 1
+    languages?.length > 1
       ? [languages].join(`, ${String.fromCharCode(160)}`)
       : [...languages];
 
   const currenciesSentence =
-    currencies.length > 1
+    currencies?.length > 1
       ? [currencies].join(`, ${String.fromCharCode(160)}`)
       : [...currencies];
 
@@ -59,7 +62,9 @@ const CountryDetails = () => {
 
   const borderCountries = borderz
     ? borderz[0]?.map((ctr) => (
-        <div className='flex flex-col justify-start items-center p-2 h-[200px] '>
+        <div
+          className='flex flex-col justify-start items-center p-2 h-[200px] '
+          key={ctr.ccn3}>
           <img
             src={ctr?.flags?.png}
             alt={`${ctr?.name?.common} Flag`}
@@ -96,11 +101,11 @@ const CountryDetails = () => {
             <div className='grid gap-3 grid-cols-1 lg:grid-cols-2 '>
               <div className='col-1 flex space-x-2 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Native Name: </h3>
-                <p>{data?.name.official}</p>
+                <p>{data?.name?.official}</p>
               </div>
               <div className=' col-1 flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Population: </h3>
-                <span>{data?.population.toLocaleString()}</span>
+                <span>{data?.population?.toLocaleString()}</span>
               </div>
               <div className='col-1 flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Region: </h3>
@@ -116,7 +121,7 @@ const CountryDetails = () => {
               </div>
               <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Top Level Domain: </h3>
-                <span>{data?.tld[0]}</span>
+                <span>{data?.tld?.[0]}</span>
               </div>
               <div className='flex space-x-1 flex-col lg:flex-row'>
                 <h3 className='font-extrabold'>Currencies: </h3>

@@ -9,15 +9,14 @@ export const CountriesProvider = ({children}) => {
   const [filter, setFilter] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [country, setCountry] = useState('');
-  const {
-    data,
-    loading: fetchedLoading,
-    error: fetchedError,
-  } = useFetch('https://restcountries.com/v3.1/all');
+  const {data, error: fetchedError} = useFetch(
+    'https://restcountries.com/v3.1/all'
+  );
 
   useEffect(() => {
     if (data !== []) {
       setCountries(data);
+      setFilteredCountries(data);
       setLoading(false);
     }
   }, [data]);
